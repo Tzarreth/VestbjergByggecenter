@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>624</x>
+      <y>40</y>
+      <w>320</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderUI
+--
+-pc : ProductConverter
+-sc : SupplyOrderLineConverter
+-soCtrl : SupplyOrderCtrl
+-help : HelpText
+-ti : TextInput
+--
+&lt;&lt; SupplyOrderUI() &gt;&gt;
++supplyOrderMainMenu() : void
++restockStorage() : void
++approveOrder(ArrayList&lt;Product&gt;) : void
++printSupplyOrders(HashMap&lt;Supplier, SupplyOrder&gt; : void
++printProducts(ArrayList&lt;Product&gt;) : void
++recieveSupplyOrder() : void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>592</x>
+      <y>240</y>
+      <w>512</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderCtr
+--
+-SupplyOrderCon : SupplyOrderContainer
+--
+&lt;&lt; SupplyOrderCtr() &gt;&gt;
++findPossibleRestockProducts() : ArrayList&lt;Product&gt;
++sendApprovedProductsToOrder(ArrayList&lt;approvedProducts&gt;) : HashMap&lt;Supplier, SupplyOrders)
++addHashMapToContainer(HashMap&lt;Supplier, SupplyOrder&gt;) : void
++getAllSupplyOrders : ArrayList&lt;SupplyOrder&gt;
++getNotRecievedSupplyOrderLines() : ArrayList&lt;SupplyOrderLine&gt;
++setSupplyOrderToLinesRecieved(SupplyOrderLine) : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>216</y>
+      <w>24</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>544</y>
+      <w>168</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>Product
+--
+-productNumber : String
+-description : String
+-productGroup : String
+-location : String
+-quantity : int
+-minAmount : int
+-maxAmount : int
+-supplier : Supplier
+--
+&lt;&lt; Product() &gt;&gt;
++getProductNumber() : String
++getMaxAmount() : int
++getMinAmount() : int
++getQuantity() : int
++getSupplier(): Supplier
++getSalesPrice() : double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>416</y>
+      <w>240</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>                                                        1
+ProductContainer
+--
+-products : ArrayList&lt;Product&gt;
+_-instance : ProductContainer_
+--
+_+getInstance() : ProductContainer_
++findProduct(productNumber) : Product
++getAll() : ArrayList&lt;Product&gt;
++addProduct(Product) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>304</y>
+      <w>232</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>ProductCtrl
+--
+-productCont : ProductContainer
+--
+&lt;&lt; ProductCtrl() &gt;&gt;
++findProduct(productNumber) : Product
++findRestockProducts(): ArrayList&lt;Product&gt;
++addProductToCont(Product) : void	</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>328</y>
+      <w>96</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>416</x>
+      <y>392</y>
+      <w>24</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>416</x>
+      <y>528</y>
+      <w>24</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>392</y>
+      <w>312</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>                                                                                             1
+SupplyOrderContainer
+--
+-supplyOrders : ArrayList&lt;SupplyOrder&gt;
+_-instance : SupplyOrderContainer_
+--
++getInstance(): SupllyOrderContainer
++addSupplyOrder(SupplyOrder) : void
++getAll() : ArrayList&lt;SupplyOrder&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>368</y>
+      <w>24</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>536</y>
+      <w>192</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderLine
+--
+-amount : int
+-product : Product
+-isRecieved : boolean
+--
+&lt;&lt; OrderLine() &gt;&gt;
++getProduct() : Product
++setProduct(product : Product) : void
++getAmount() : int
++setAmount(amount : int) : void
++isRecieved() : boolean
++setRecieved(boolean) : void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>856</x>
+      <y>504</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>544</x>
+      <y>528</y>
+      <w>288</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>SupplyOrder
+--
+-orderLines : ArrayList&lt;SupplyOrderLine&gt;
+-supplier : Supplier
+-date : LocalDate
+--
+&lt;&lt; SupplyOrder() &gt;&gt;
++getSupplier() : Supplier
++setSupplier(Supplier) : void
++addSupplyOrderLine(SupplyOrderLine) : void
++getSupplyOrderLines() : ArrayList&lt;SupplyOrderLines&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>504</y>
+      <w>24</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>904</x>
+      <y>368</y>
+      <w>24</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=.
+</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>360</y>
+      <w>64</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=.
+</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>688</y>
+      <w>184</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Supplier
+--
+-name: String
+--
+&lt;&lt; Supplier() &gt;&gt;
++getName()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>720</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;60.0;20.0</additional_attributes>
+  </element>
+</diagram>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>14</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>420</x>
+      <y>392</y>
+      <w>196</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>Lagermedarbejder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>686</x>
+      <y>266</y>
+      <w>224</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>Lagerdelsystem
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>714</x>
+      <y>308</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Opret leverandør
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>714</x>
+      <y>448</y>
+      <w>168</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Registrer 
+modtagelse
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>714</x>
+      <y>532</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Bestil varer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>434</y>
+      <w>238</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;150.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>434</y>
+      <w>238</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;150.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>322</y>
+      <w>238</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;90.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>714</x>
+      <y>378</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Vare CRU
+(CRUD)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>392</y>
+      <w>238</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;40.0;150.0;10.0</additional_attributes>
+  </element>
+</diagram>

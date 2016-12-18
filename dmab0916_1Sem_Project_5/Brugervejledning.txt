@@ -1,0 +1,29 @@
+Programmet er opbygget med et tekst user interface.
+For at starte programmet køres derfor main metoden i MainMenuUI, klassen.
+
+Opret ordrer:
+Vælg undermenuen Ordrer, ved at indtaste 1 i consolen og tryk enter. 
+Vælg Opret ordrer, og dernæst Tilføj varer, hvor varenummeret indtastes.
+Liste over mulige varenummer: 1, 2, 4 ,5 ,6 , 102, 140, 13.
+Når de ønsket varer er tilføjet til ordreren skal der tilføjes en kunde.
+Dette kan gøres ud fra eksiterende kunder ved at indtaste deres telefonnummer.
+Telefonnummer for kunder der er oprette systemer:
+"12345678", "12121212", og "77778888". 
+
+Eksiternede ordrer:
+Indtast 2 i Ordrer menuen. Der er på forhånd gemt nogle odrer ved brug af persistent data.
+
+Genbestil varer:
+Vælg undermenuen Bestillinger fra hovedmenuen.
+Indtast 1 for at tjek lageret for genbestillinger.
+En liste vil blive udskrevet af varer der skal genbestilles. 
+Varene kan vælges at blive godkent ved at valge dem ud fra listen.
+Når alle varer der ønskes godkendt er valgt, indtastes 0 for done.
+Herefter vil en bestillingliste udprintes som enten skal bekræftes eller afbekræftes.
+
+Varemodtagelse:
+Vælg undermenuen Bestilling fra hovedmenuen.
+Indtast 2 for varemodtagelse.
+En liste vil blive udskrevet af varer som er blevet bestilt (Genbestil varer skal udføres først)  
+Når alle varer der ønsket at sættes til modtager er valgt, indtastes 0 for done.
+

@@ -1,0 +1,33 @@
+package model;
+
+import java.util.ArrayList;
+
+public class SupplyOrderContainer {
+	private ArrayList<SupplyOrder> supplyOrders;
+	private static SupplyOrderContainer instance; 
+	
+	private SupplyOrderContainer(){
+		supplyOrders = new ArrayList<>();
+		
+	}
+	
+	public static SupplyOrderContainer getInstane(){
+		if(instance == null){
+			instance = new SupplyOrderContainer();
+		}
+		return instance;
+	}
+	
+	public void addSupplyOrder(SupplyOrder so){
+		supplyOrders.add(so);
+	}
+	
+	public ArrayList<SupplyOrder> getAll(){
+		ArrayList<SupplyOrder> res = supplyOrders;
+		return res;
+	}
+	
+	public void clear(){
+		supplyOrders.clear();
+	}
+}

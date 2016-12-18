@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>18</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>378</y>
+      <w>432</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>Operation: createOrder
+--
+Use case: Opret ordre
+Præbetingelse: 
+- En kunde og vare findes i systemet
+Postbetingelse:
+- En instans o af Ordre blev oprettet
+- o blev tilskrevet aktuelle værdier
+- En instans k af Kunde er blevet 
+associeret til o</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -1,0 +1,16 @@
+package ui;
+
+import model.Order;
+import ui.libTUI.ConverterIF;
+
+public class OrderConverter implements ConverterIF<Order> {
+	
+	@Override
+	public String convertToString(Order o) {
+		if(! (o instanceof Order)) {
+			return "[Sorry, not a Order object]";
+		}
+		Order newO = (Order)o;
+		return "Nummer " + newO.getNumber() + ", pris: " + newO.sumTotalPrice();
+		}
+}

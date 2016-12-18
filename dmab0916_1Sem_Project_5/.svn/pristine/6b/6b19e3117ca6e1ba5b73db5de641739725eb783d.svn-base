@@ -1,0 +1,8 @@
+Programmet er opbygget med et tekst user interface.
+For at starte programmet køres derfor main metoden i MainMenuUI, klassen.
+Ved opret ordrer vælges under menuen Ordrer, ved at indtaste 1 i consolen og tryk
+enter. Herefter vælges Opret ordrer, dernæst Tilføj varer, hvor varenummeret indtastes.
+Når de ønsket varer er tilføjet til ordreren skal der tilføjes en kunde.
+Dette kan gøres ud fra eksiterende kunder ved at indtaste deres telefonnummer.
+Telefonnummer for kunder der er oprette systemer.
+"12345678", "12121212", og "77778888". 

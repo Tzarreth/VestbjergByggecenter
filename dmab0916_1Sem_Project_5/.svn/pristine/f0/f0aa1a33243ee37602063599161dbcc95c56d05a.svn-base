@@ -1,0 +1,58 @@
+package controller;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import model.*;
+
+
+public class OrderCtrl {
+	private OrderContainer orderCont = OrderContainer.getInstance();
+	private ProductCtrl productCtrl = new ProductCtrl();
+	private CustomerCtrl customerCtrl = new CustomerCtrl();
+	private Order order = new Order();
+	
+	public OrderCtrl(){
+		
+	}
+	
+	public Order createOrder(){
+		return new Order();
+	}
+	
+	public Product findProduct(String productNumber){
+		return productCtrl.findProduct(productNumber);
+		
+	}
+	
+	public void addProductToOrder(Product p, int amount){
+		order.addProductToOrder(p, amount);
+	}
+	
+	public Customer findCustomer(String phone){
+		return customerCtrl.findCustomer(phone);
+		
+	}
+	
+	public double getTotalPrice(){
+		return order.getTotalPrice();
+	}
+	
+	public void addCustomerToOrder(Customer c){
+		order.addCustomerToOrder(c.getPhone());
+		
+	}
+	
+	public Order closeOrder(Order o){
+		o.setPackDate(null);
+		o.setSendDate(null);
+		o.setPayDate(null);
+		orderCont.addOrder(o);
+		return o;
+	}
+	
+	public ArrayList<Order> getAllOrders(){
+		return orderCont.getAll();
+		
+	}
+}

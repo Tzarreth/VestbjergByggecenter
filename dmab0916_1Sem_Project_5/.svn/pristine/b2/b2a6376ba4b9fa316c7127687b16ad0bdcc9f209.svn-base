@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>160</y>
+      <w>160</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderUI
+--
+SupplyOrderCtrl : SupplyOrderCtrl
+--
+&lt;&lt; SupplyOrderUI() &gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>270</y>
+      <w>240</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderCtr
+--
+SupplyOrderCon : SupplyOrderCon
+--
+&lt;&lt; SupplyOrderCtr() &gt;&gt;
++createOrderList()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>220</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>570</y>
+      <w>160</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Product
+--
+productNumber : String
+description : String
+productGroup : String
+location : String
+quantity : int
+minAmount : int
+maxAmount : int
+--
+&lt;&lt; Product() &gt;&gt;
+getProductNumber()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>390</y>
+      <w>250</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>                                                        1
+ProductContainer
+--
+products : ArrayList&lt;Product&gt;
+--
+getInstance() : ProductContainer
+findProduct(productNumber) : Product
+findProductUnderStock(): Product</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>250</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>ProductCtrl
+--
+productCont : ProductContainer
+--
+&lt;&lt; ProductCtrl() &gt;&gt;
+findProduct(productNumber) : Product
+findProductUnderStock(): Product</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>280</y>
+      <w>90</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>70.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>340</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>510</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>400</y>
+      <w>260</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderCon
+--
+supplyOrders : HashMap&lt;SupplyOrder&gt;
+--
++getInstance(): SupllyOrderCon
++createOrderLine(product, amount): OrderLine
++findOrder(Supplier s): SupplyOrder
++getAll(): ArrayList&lt;SupplyOrder&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>300</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>80.0;100.0;80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1160</x>
+      <y>560</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderLine
+--
+int amount
+Product product
+--
+&lt;&lt; OrderLine() &gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1210</x>
+      <y>510</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>560</y>
+      <w>230</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>SupplyOrder
+--
+orderLines : ArrayList&lt;OrderLine&gt;
+--
+&lt;&lt; SupplyOrder() &gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>510</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

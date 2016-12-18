@@ -1,0 +1,99 @@
+package ui;
+
+import model.*;
+import ui.libTUI.TextInput;
+
+import java.io.IOException;
+
+import controller.*;
+import exceptions.model.CustomerAlreadyExistsException;
+
+public class MainMenuUI implements IMainMenuUI {
+
+	private TextInput ti;
+	private HelpText help;
+	private OrderUI orderUI;
+	private SupplyOrderUI supplyOrderUI;
+	private SaveAndLoadFromFile saveAndLoad;
+	{
+		ti = new TextInput();
+		help = new HelpText();
+		orderUI = new OrderUI();
+		supplyOrderUI = new SupplyOrderUI();
+		saveAndLoad = new SaveAndLoadFromFile();
+	}
+
+	public static void main(String[] args) {
+		setup();
+		new MainMenuUI().run();
+	}
+
+	@Override
+	public void run() {
+		boolean running = true;
+		saveAndLoad.loadAll();
+		while (running) {
+			System.out.println("--- Vestbjerg Byggecenter ---");
+			System.out.println("1. Ordrer");
+			System.out.println("2. Bestillinger");
+			System.out.println("9. Afslut");
+
+			String choice = ti.promptString("Vælg menu: ");
+			switch (choice) {
+			case "1":
+				orderUI.orderMenu();
+				break;
+			case "2":
+				supplyOrderUI.SupplyOrderMainMenu();
+				break;
+			case "9":
+				saveAndLoad.saveAll();
+				System.out.println("God arbejdslyst");
+				running = false;
+				break;
+			default:
+				help.notExistingCommand();
+				break;
+			}
+		}
+	}
+
+	public static void setup(){
+		Supplier s1, s2, s3;
+		Product p1, p2, p3, p4, p5, p6;
+		ProductContainer pCon;
+		Customer c1, c2, c3;
+		CustomerContainer cCon;
+
+		s1 = new Supplier("Bauhaus");
+		s2 = new Supplier("Silvan");
+		s3 = new Supplier("Jem og Fix");
+		p1 = new Product(1500, 2000, "1", "snescooter", "vinter", "Hylde 1", 10, 4, 15, s3);
+		p2 = new Product(800, 1000, "2", "kælk", "vinter", "hylde4", 5, 20, 30, s3);
+		p3 = new Product(1000, 1200, "3", "hurtig kælk", "vinter", "hylde 5", 3, 4, 25, s1);
+		p4 = new Product(100, 300, "4", "kaffemaskine", "hvidevarer", "hylde 17", 5, 6, 10, s2);
+		p5 = new Product(1300, 1500, "5", "vaskemaskine", "hårdeHvidevarer", "hylde 19", 4, 4, 5, s1);
+		p6 = new Product(3000, 3200, "6", "den slår hårdt", "værktøj", "Hylde 52", 10, 2, 15, s3);
+
+		pCon = ProductContainer.getInstance();
+		pCon.addProduct(p1);
+		pCon.addProduct(p2);
+		pCon.addProduct(p3);
+		pCon.addProduct(p4);
+		pCon.addProduct(p5);
+		pCon.addProduct(p6);
+
+		c1 = new Customer("Jakob Jakobsen", "Sofiendalsvej 60", "jakob@jakobsen.com", "12345678", "privat");
+		c2 = new Customer("Tømrermester", "Lægtevej 4", "hej@tømreren.dk", "12121212", "erhverv");
+		c3 = new Customer("Hans Hansen", "Birkevej 10", "hans@gmail.com", "77778888", "privat");
+
+		cCon = CustomerContainer.getInstance();
+		try {
+			cCon.addCustomer(c1);
+			cCon.addCustomer(c2);
+			cCon.addCustomer(c3);
+		} catch (CustomerAlreadyExistsException e) {
+			e.printStackTrace();
+		}	
+	}
+}

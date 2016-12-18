@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>12</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>228</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>552</x>
+      <y>132</y>
+      <w>396</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Use Case: Genbestil vare
+
+amount = p.MaxAmount - p.Quantity
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>396</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderCtr</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>756</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Product</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1272</x>
+      <y>480</y>
+      <w>156</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderLine</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>480</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>SupplyOrderCon</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>252</y>
+      <w>276</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1. orderLists = createOrderList()</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>396</y>
+      <w>276</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1 p = findProduct(): Product
+</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>624</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ProductCon</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>648</y>
+      <w>420</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.3 *[i = 0 .. *] getMinAmount(): int, getQuantity() : int
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>492</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ProductCtr</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>516</y>
+      <w>252</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.2 p = findProduct(): Product
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>732</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>SupplyOrder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>708</x>
+      <y>396</y>
+      <w>492</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.5 createOrderLine(p, amount)
+1.7 FindOrder(p.Supplier)
+1.9 orderLists = getAll() : ArrayList&lt;SupplyOrder&gt;
+</panel_attributes>
+    <additional_attributes>90.0;70.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>876</x>
+      <y>480</y>
+      <w>420</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.6 ol = createOrderLine(p, amount): OrderLine</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>852</x>
+      <y>504</y>
+      <w>360</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.7a [if SupplyOrder dont contains p.Supllier]
+create SupplyOrder(ol)
+
+1.7b [If SupplyOrder Contains p.Supplier]
+addOrderLine(ol)</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

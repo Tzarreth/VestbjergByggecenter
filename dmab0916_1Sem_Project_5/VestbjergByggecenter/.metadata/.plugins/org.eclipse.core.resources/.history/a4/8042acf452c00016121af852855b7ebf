@@ -1,0 +1,11 @@
+package exceptions.model;
+
+public class CustomerDoesNotExistException extends Exception {
+	public CustomerDoesNotExistException(){
+
+	}
+
+	public String getMessage(){
+		return "Kunden findes allerede";
+	}
+}

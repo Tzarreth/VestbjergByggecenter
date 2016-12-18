@@ -1,0 +1,5 @@
+package exceptions.model;
+
+public class CustomerDoesNotExistException extends Exception {
+
+}

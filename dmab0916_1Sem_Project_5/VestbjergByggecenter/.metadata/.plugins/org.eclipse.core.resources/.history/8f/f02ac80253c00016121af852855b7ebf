@@ -1,0 +1,31 @@
+package controller;
+
+import exceptions.model.CustomerAlreadyExistsException;
+import model.*;
+
+public class CustomerCtrl {
+	private CustomerContainer customerCont = CustomerContainer.getInstance();
+
+	public CustomerCtrl(){
+
+	}
+
+	/**
+	 * finds an existing customer using a phone 
+	 * @param phone is String
+	 * @return returns the found customer
+	 */
+	public Customer findCustomer(String phone) {
+		Customer c = customerCont.findCustomer(phone);
+		return c;
+	}
+	
+	/**
+	 * adds a Customer to the CustomerContainer
+	 * @param c is Customer
+	 * @throws CustomerAlreadyExistsException
+	 */
+	public void addCustomer(Customer c) throws CustomerAlreadyExistsException{
+		customerCont.addCustomer(c);
+	}	
+}

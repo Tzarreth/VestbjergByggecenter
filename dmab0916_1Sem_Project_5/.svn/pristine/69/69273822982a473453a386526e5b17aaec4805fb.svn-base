@@ -1,0 +1,98 @@
+package controller;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import model.*;
+
+public class SupplyOrderCtrl {
+	private SupplyOrderContainer supplyOrderCon;
+
+	public SupplyOrderCtrl(){
+		supplyOrderCon = SupplyOrderContainer.getInstane();
+	}
+
+	public ArrayList<Product> findPossibleRestockProducts(){
+		ProductCtrl productCtrl = new ProductCtrl();
+		ArrayList<Product> restockProducts = productCtrl.findRestockProducts();
+		ArrayList<SupplyOrder> temp = supplyOrderCon.getAll();
+		for(SupplyOrder s : temp){
+			ArrayList<SupplyOrderLine> currSOLs = s.getSupplyOrderLines();
+			for (SupplyOrderLine so : currSOLs){
+				if(!so.isRecieved() && restockProducts.contains(so.getProduct())){
+					restockProducts.remove(so.getProduct());
+
+				}
+			}
+		}
+		return restockProducts;
+
+	}
+	
+	public int amountToReorder(Product p){
+		return p.getMaxAmount() - p.getQuantity();
+	}
+
+	public HashMap<Supplier, SupplyOrder> sendApprovedProductsToOrder(ArrayList<Product> approvedProducts){
+		HashMap<Supplier, SupplyOrder> tempSupplyOrders = new HashMap<>();
+		for(Product p : approvedProducts){
+			Supplier sup = p.getSupplier();
+			int amount = amountToReorder(p);
+			SupplyOrderLine sol = new SupplyOrderLine(p, amount);
+			if(tempSupplyOrders.containsKey(sup)){
+				tempSupplyOrders.get(sup).addSupplyOrderLine(sol);
+			}
+			else{
+				SupplyOrder tempNewSupplyOrder = new SupplyOrder(sup);
+				tempNewSupplyOrder.addSupplyOrderLine(sol);
+				tempSupplyOrders.put(sup, tempNewSupplyOrder);
+			}
+		}
+		addHashMapToContainer(tempSupplyOrders);
+		return tempSupplyOrders; 
+
+
+
+	}
+	public void addHashMapToContainer(HashMap<Supplier, SupplyOrder> tempSupplyOrders){
+		Collection<SupplyOrder> c = tempSupplyOrders.values();
+		Iterator<SupplyOrder> it = c.iterator();
+		while(it.hasNext()){
+			SupplyOrder temp = it.next();
+			supplyOrderCon.addSupplyOrder(temp);
+		}
+	}
+
+	public ArrayList<SupplyOrder> getAllSupplyOrders(){
+		return supplyOrderCon.getAll();
+	}
+
+	public ArrayList<SupplyOrderLine> getNotRecievedSupplyOrderLines(){
+		ArrayList<SupplyOrder> supplyOrders = getAllSupplyOrders();
+		ArrayList<SupplyOrderLine> sol = new ArrayList<>();
+		for (SupplyOrder s : supplyOrders){
+			for(SupplyOrderLine so: s.getSupplyOrderLines()){
+				if (!so.isRecieved()){
+					sol.add(so);
+				}
+			}
+		}
+		return sol;
+
+	}
+	
+	public void setSOLToRecieved(SupplyOrderLine supplyOrderLine){
+		ArrayList<SupplyOrderLine> sol = getNotRecievedSupplyOrderLines();
+		for (SupplyOrderLine s: sol){
+			if (s.equals(supplyOrderLine)){
+				s.setRecieved(true);
+				Product p = s.getProduct();
+				p.setQuantity(amountToReorder(p) + p.getQuantity());
+			}
+		}
+		
+	}
+
+}
+
