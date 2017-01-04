@@ -1,0 +1,5 @@
+package ui.tui;
+
+public interface IMainMenuUI {
+	void run();
+}

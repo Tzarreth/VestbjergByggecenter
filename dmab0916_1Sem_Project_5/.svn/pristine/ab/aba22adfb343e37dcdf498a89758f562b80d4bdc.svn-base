@@ -1,0 +1,247 @@
+package ui.gui;
+
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import java.awt.CardLayout;
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class Main {
+
+	private JFrame frame;
+	private JPanel panelMainMenu;
+	private JPanel panelOrderMenu;
+	private JPanel panelSupplyOrderMenu;
+	private JPanel panelCreateOrder;
+	private JPanel panelShowAllOrders;
+	private JButton btnShowAllOrders;
+	private JButton btnBack;
+	private JButton btnCreateOrderBack;
+	private JButton btnShowAllOrdersBack;
+	
+	private ArrayList<JPanel> panels = new ArrayList<>();
+	
+	private void addPanelsToList(){
+		panels.add(panelMainMenu);
+		panels.add(panelOrderMenu);
+		panels.add(panelSupplyOrderMenu);
+		panels.add(panelCreateOrder);
+		panels.add(panelShowAllOrders);
+	}
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Main window = new Main();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Main() {
+		initialize();
+		addPanelsToList();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new CardLayout(0, 0));
+
+		panelMainMenu = new JPanel();
+		frame.getContentPane().add(panelMainMenu, "name_10930597007731");
+		panelMainMenu.setLayout(null);
+
+		createBtnOrder();
+
+		createBtnSupplier();
+
+		panelOrderMenu = new JPanel();
+		frame.getContentPane().add(panelOrderMenu, "name_10933055581982");
+		panelOrderMenu.setLayout(null);
+
+		btnCreateOrder();
+
+		btnShowAllOrders();
+
+		btnOrderBack();
+
+		panelCreateOrder = new JPanel();
+		frame.getContentPane().add(panelCreateOrder, "name_13064687373850");
+		panelCreateOrder.setLayout(null);
+		
+		btnCreateOrderMenuBack();
+		
+
+		panelShowAllOrders = new JPanel();
+		frame.getContentPane().add(panelShowAllOrders, "name_13101855859892");
+		panelShowAllOrders.setLayout(null);
+		
+		btnShowAllOrdersBack = new JButton("Tilbage");
+		btnShowAllOrdersBack.setBounds(673, 515, 97, 25);
+		panelShowAllOrders.add(btnShowAllOrdersBack);
+
+		panelSupplyOrderMenu = new JPanel();
+		frame.getContentPane().add(panelSupplyOrderMenu, "name_10968216089168");
+		panelSupplyOrderMenu.setLayout(null);
+	}
+
+	private void createBtnOrder() {
+		ImageIcon iconOrder = new ImageIcon(getClass().getClassLoader().getResource("images/cart.png"));
+		JButton btnOrder = new JButton(iconOrder);
+		btnOrder.setFocusPainted(false);
+		btnOrder.setText("Ordrer");
+		btnOrder.setMnemonic(KeyEvent.VK_O);
+		btnOrder.addActionListener(new ActionListener() {
+
+
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();
+				panelOrderMenu.setVisible(true);
+				System.out.println("Order clicked");
+			}
+		});
+
+		btnOrder.setBackground(SystemColor.menu);
+		btnOrder.setBorder(null);
+		btnOrder.setBounds(132, 173, 172, 172);
+		panelMainMenu.add(btnOrder);
+
+
+	}
+
+	private void createBtnSupplier() {
+		ImageIcon iconSupplier = new ImageIcon(getClass().getClassLoader().getResource("images/dolly.png"));
+		JButton btnLager = new JButton(iconSupplier);
+		btnLager.setFocusPainted(false);
+		btnLager.setText("Lager");
+		btnLager.setMnemonic(KeyEvent.VK_L);
+		btnLager.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();
+				panelSupplyOrderMenu.setVisible(true);
+				System.out.println("Supplier clicked");
+
+			}
+		});
+
+		btnLager.setBackground(new Color(240, 240, 240));
+		btnLager.setBorder(null);
+		btnLager.setBounds(419, 173, 172, 172);
+		panelMainMenu.add(btnLager);
+
+	}
+
+	private void btnCreateOrder() {
+
+		JButton btnCreateOrder = new JButton("Opret ny ordre");
+		btnCreateOrder.setFocusPainted(false);
+		btnCreateOrder.setMnemonic(KeyEvent.VK_O);
+		btnCreateOrder.addActionListener(new ActionListener() {
+
+
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();
+				panelCreateOrder.setVisible(true);
+			}
+		});
+
+		btnCreateOrder.setBackground(SystemColor.menu);
+		btnCreateOrder.setBorder(null);
+		btnCreateOrder.setBounds(152, 206, 117, 50);
+		panelOrderMenu.add(btnCreateOrder);
+
+	}
+
+	private void btnShowAllOrders() {
+
+		btnShowAllOrders = new JButton("Vis alle ordre");
+		btnShowAllOrders.setFocusPainted(false);
+		btnShowAllOrders.setMnemonic(KeyEvent.VK_O);
+		btnShowAllOrders.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();
+				panelShowAllOrders.setVisible(true);
+			}
+		});
+
+		btnShowAllOrders.setBackground(SystemColor.menu);
+		btnShowAllOrders.setBorder(null);
+		btnShowAllOrders.setBounds(398, 206, 117, 50);		
+		panelOrderMenu.add(btnShowAllOrders);
+
+	}
+
+	private void btnOrderBack(){
+
+		btnBack = new JButton("Tilbage");
+		btnBack.setFocusPainted(false);
+		btnBack.setMnemonic(KeyEvent.VK_B);
+		btnBack.addActionListener(new ActionListener() {
+
+
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();
+				panelMainMenu.setVisible(true);
+				System.out.println("Order clicked");
+			}
+		});
+
+		btnBack.setBackground(SystemColor.menu);
+		btnBack.setBorder(null);
+		btnBack.setBounds(673, 515, 97, 25);
+		panelOrderMenu.add(btnBack);
+
+	}
+
+	private void btnCreateOrderMenuBack(){
+		
+		btnCreateOrderBack = new JButton("Tilbage");
+		btnCreateOrderBack.setFocusPainted(false);
+		btnCreateOrderBack.setMnemonic(KeyEvent.VK_B);
+		btnCreateOrderBack.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				setPanelsToInvisible();				
+				panelOrderMenu.setVisible(true);
+				System.out.println("Order clicked");
+			}
+		});
+
+		btnCreateOrderBack.setBackground(SystemColor.menu);
+		btnCreateOrderBack.setBorder(null);
+		btnCreateOrderBack.setBounds(673, 515, 97, 25);
+		panelCreateOrder.add(btnCreateOrderBack);
+	}
+	
+	private void setPanelsToInvisible(){
+		for(JPanel panel : panels){
+			panel.setVisible(false);
+		}
+	}
+}

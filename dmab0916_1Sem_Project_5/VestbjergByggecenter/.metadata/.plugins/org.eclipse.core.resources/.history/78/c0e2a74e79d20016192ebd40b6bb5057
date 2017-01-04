@@ -1,0 +1,19 @@
+package ui.gui;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class CardLayout extends JFrame {
+	
+	public CardLayout(){
+		setTitle("Test");
+		setSize(800, 600);
+		
+	}
+	
+	
+	
+}

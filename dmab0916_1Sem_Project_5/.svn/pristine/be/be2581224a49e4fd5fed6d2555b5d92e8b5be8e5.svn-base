@@ -1,0 +1,75 @@
+package ui.gui;
+
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import model.Order;
+
+
+public class MyTableOrder extends DefaultTableModel {
+		private static final long serialVersionUID = 1L;
+		private ArrayList<Order> orders;
+
+		public MyTableOrder(){
+			orders = new ArrayList<>();
+		}
+
+		@Override
+		public int getColumnCount(){
+			return 8;
+		}
+
+		@Override
+		public int getRowCount(){
+			return orders == null ? 0 : orders.size();
+		}
+
+		@Override
+		public String getColumnName(int ix) {
+			System.out.print("getColumnName(" + ix + ") ");
+			switch(ix) {
+			case 0: System.out.println("Registrerings dato"); return "registreringsdato";
+			case 1: System.out.println("Pakke dato");return "Pakke dato";
+			case 2: System.out.println("Afsendelses dato");return "Afsendelses dato";
+			case 3: System.out.println("Betalings dato");return "Betalings dato";
+			case 4: System.out.println("Udløbelses dato");return "Udløbelses dato";
+			case 5 : System.out.println("Vare i ordre");return "Vare i ordre";
+			case 6 : System.out.println("Total pris");return "Total pris";
+			case 7 : System.out.println("Kunde");return "Kunde";
+			
+			default: System.out.println("???");return "???";
+			}
+		}
+
+		@Override
+		public Object getValueAt(int row, int col){
+			
+			switch(col){
+			case 0: return orders.get(row).getRegDate();
+			case 1: return orders.get(row).getPackDate();
+			case 2: return orders.get(row).getSendDate();
+			case 3: return orders.get(row).getPayDate();
+			case 4: return orders.get(row).getExpiryDate() ;
+			case 5: return orders.get(row).getOrderLines();
+			case 6: return orders.get(row).getTotalPrice();
+			case 7: return orders.get(row).getCustomer();
+			
+			default: return null;
+			}
+		}
+
+		public void setData(ArrayList<Order> data) {
+			this.orders = data;
+			super.fireTableDataChanged();
+		}
+
+		public Order getData(int selectedRow) {
+			if(selectedRow >= 0 && selectedRow < orders.size()) {
+				return this.orders.get(selectedRow);
+			}
+			return null;
+		}
+
+
+}

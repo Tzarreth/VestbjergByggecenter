@@ -1,0 +1,95 @@
+package ui.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JMenuBar;
+
+public class CreateOrderView extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreateOrderView frame = new CreateOrderView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CreateOrderView() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(70, 60, 273, 254);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNavn = new JLabel("Navn:");
+		lblNavn.setBounds(25, 58, 46, 14);
+		panel.add(lblNavn);
+		
+		JLabel lblTelefon = new JLabel("Telefon:");
+		lblTelefon.setBounds(25, 33, 46, 14);
+		panel.add(lblTelefon);
+		
+		JLabel lblAdresse = new JLabel("Adresse:");
+		lblAdresse.setBounds(25, 83, 46, 14);
+		panel.add(lblAdresse);
+		
+		JLabel lblNewLabel_1 = new JLabel("Postnr. og by:");
+		lblNewLabel_1.setBounds(25, 109, 81, 14);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(25, 134, 46, 14);
+		panel.add(lblEmail);
+		
+		JLabel lblKundenummer = new JLabel("Kundenummer:");
+		lblKundenummer.setBounds(25, 159, 81, 14);
+		panel.add(lblKundenummer);
+		
+		JLabel lblKundetype = new JLabel("Kundetype:");
+		lblKundetype.setBounds(25, 183, 81, 14);
+		panel.add(lblKundetype);
+		
+		JLabel lblKundegruppe = new JLabel("Kundegruppe:");
+		lblKundegruppe.setBounds(25, 208, 81, 14);
+		panel.add(lblKundegruppe);
+		
+		textField = new JTextField();
+		textField.setBounds(81, 30, 147, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Kunde");
+		lblNewLabel.setBounds(70, 44, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(330, 11, 97, 21);
+		contentPane.add(menuBar);
+	}
+}

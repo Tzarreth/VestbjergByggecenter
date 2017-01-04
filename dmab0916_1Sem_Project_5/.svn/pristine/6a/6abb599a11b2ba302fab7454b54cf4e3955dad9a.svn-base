@@ -1,0 +1,73 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import javax.swing.JTable;
+
+import controller.*;
+
+public class SupplyOrderView extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	private TabelModelSupplyOrder myModel = new TabelModelSupplyOrder();
+	
+	private SupplyOrderCtrl sCtrl = new SupplyOrderCtrl();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		MainGUI.setup();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SupplyOrderView frame = new SupplyOrderView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public SupplyOrderView() {
+		setTitle("Genbestil Vare");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Genbestillingsvare");
+		lblNewLabel.setBounds(296, 86, 111, 14);
+		contentPane.add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(80, 104, 578, 93);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(myModel);
+		table.setAutoCreateRowSorter(true);
+		myModel.setData(sCtrl.findPossibleRestockProducts());
+		
+		
+		
+		JButton btnGodkendBestilling = new JButton("Godkend Bestilling");
+		btnGodkendBestilling.setBounds(521, 416, 137, 23);
+		contentPane.add(btnGodkendBestilling);
+	}
+}

@@ -1,0 +1,131 @@
+package ui.gui;
+
+import java.awt.BorderLayout;
+
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
+
+import controller.OrderCtrl;
+import controller.StockCtrl;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.Button;
+import java.awt.Color;
+
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+
+public class orderShowAllOrdersView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTable table;
+	private MyTableOrder myTable = new MyTableOrder();
+	private JButton btnClose;
+	private JTextField txtQuery;
+	private TableRowSorter<MyTableOrder> sorter;
+	
+	
+	private OrderCtrl orderCtrl = new OrderCtrl();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {	
+			public void run() {
+				try {
+					ShowAllOrdersView frame = new ShowAllOrdersView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public orderShowAllOrdersView() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 749, 578);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+			
+			txtQuery = new JTextField();
+			txtQuery.setToolTipText("s\u00F8g");
+			txtQuery.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					System.out.println("Hey");
+					filter(txtQuery.getText());
+				}
+			});
+		
+			txtQuery.setBounds(12, 17, 254, 22);
+			txtQuery.setColumns(10);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setToolTipText("Click column header to sort");
+			scrollPane.setForeground(Color.BLACK);
+			scrollPane.setBackground(Color.WHITE);
+			scrollPane.setBounds(12, 52, 719, 431);
+			
+			table = new JTable();
+			table.setToolTipText("Click Product to select");
+			table.setBackground(Color.WHITE);
+			scrollPane.setViewportView(table);
+			
+			table.setModel(myTable);
+			table.getColumnModel().getColumn(0).setPreferredWidth(330);
+			table.getColumnModel().getColumn(1).setPreferredWidth(250);
+			sorter = new TableRowSorter<MyTableOrder>();
+			
+			myTable.setData(orderCtrl.getAllOrders());
+			table.setAutoCreateRowSorter(true);
+			
+			btnClose = new JButton("Close");
+			btnClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					btnCloseClicked();
+				}
+			});
+			btnClose.setBounds(406, 493, 190, 25);
+			contentPane.setLayout(null);
+			contentPane.setLayout(null);
+			contentPane.add(txtQuery);
+			contentPane.add(scrollPane);
+			contentPane.add(btnClose);
+		}
+
+	protected void filter(String query) {
+	 
+		TableRowSorter<MyTableOrder> tr = new TableRowSorter<MyTableOrder>(myTable);
+		table.setRowSorter(tr);
+		tr.setRowFilter(RowFilter.regexFilter(query));
+		
+		myTable.setData(orderCtrl.getAllOrders());
+		} 
+		
+
+	protected void btnCloseClicked() {
+		this.setVisible(false);
+		this.dispose();
+		
+	}
+}

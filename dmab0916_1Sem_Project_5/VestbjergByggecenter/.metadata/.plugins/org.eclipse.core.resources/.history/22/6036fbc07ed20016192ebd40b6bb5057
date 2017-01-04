@@ -1,0 +1,72 @@
+package ui.gui;
+
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.*;
+import ui.*;
+
+@SuppressWarnings("serial")
+public class MainMenuView extends JPanel {
+
+	private JPanel panelMainMenu;
+	private JPanel panelOrderMenu;
+	
+	private boolean isVisible = false;
+
+	public MainMenuView(){
+		panelMainMenu = new JPanel();
+		
+		setLayout(null);
+		createBtnOrder();
+		createBtnSupplier();
+		//setSize(800, 600);
+	}
+
+	private void createBtnOrder() {
+		ImageIcon iconOrder = new ImageIcon(getClass().getClassLoader().getResource("images/cart.png"));
+		JButton btnOrder = new JButton(iconOrder);
+		btnOrder.setFocusPainted(false);
+		btnOrder.setText("Ordrer");
+		btnOrder.setMnemonic(KeyEvent.VK_O);
+		btnOrder.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				new Main().setContentPane(panelOrderMenu);
+				this.dispose();
+			}
+		});
+		panelMainMenu.setLayout(null);
+
+		btnOrder.setBackground(SystemColor.menu);
+		btnOrder.setBorder(null);
+		btnOrder.setBounds(161, 221, 172, 172);
+		add(btnOrder);
+	}
+
+	private void createBtnSupplier() {
+		ImageIcon iconSupplier = new ImageIcon(getClass().getClassLoader().getResource("images/dolly.png"));
+		JButton btnLager = new JButton(iconSupplier);
+		btnLager.setFocusPainted(false);
+		btnLager.setText("Lager");
+		btnLager.setMnemonic(KeyEvent.VK_L);
+		btnLager.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("Supplier clicked");
+
+			}
+		});
+
+		btnLager.setBackground(new Color(240, 240, 240));
+		btnLager.setBorder(null);
+		btnLager.setBounds(428, 221, 172, 172);
+		add(btnLager);
+	}
+
+}

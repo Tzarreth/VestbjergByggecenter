@@ -1,0 +1,220 @@
+package ui.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JMenuBar;
+import java.awt.Button;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CreateOrderView extends JPanel {
+
+	private JPanel contentPane;
+	private JTextField phoneTextField;
+	private JTextField nameTextField;
+	private JTextField addressTextField;
+	private JTextField cityTextField;
+	private JTextField emailTextField;
+	private JTextField customerIdTextField;
+	private JTextField customerTypeTextField;
+	private JTextField customerGroupTextField;
+	private JTextField descriptionTextField;
+	private JTextField productIdTextField;
+	private JTextField productGroupTextField;
+	private JTextField productStatusTextField;
+	private JTextField amountTextField;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreateOrderView frame = new CreateOrderView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CreateOrderView() {
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(null);
+		
+		JPanel kundePanel = new JPanel();
+		kundePanel.setBounds(70, 60, 333, 266);
+		contentPane.add(kundePanel);
+		kundePanel.setLayout(null);
+		
+		JLabel lblNavn = new JLabel("Navn:");
+		lblNavn.setBounds(25, 58, 81, 14);
+		kundePanel.add(lblNavn);
+		
+		JLabel lblTelefon = new JLabel("Telefon:");
+		lblTelefon.setBounds(25, 33, 81, 14);
+		kundePanel.add(lblTelefon);
+		
+		JLabel lblAdresse = new JLabel("Adresse:");
+		lblAdresse.setBounds(25, 83, 46, 14);
+		kundePanel.add(lblAdresse);
+		
+		JLabel lblNewLabel_1 = new JLabel("Postnr. og by:");
+		lblNewLabel_1.setBounds(25, 109, 81, 14);
+		kundePanel.add(lblNewLabel_1);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(25, 134, 46, 14);
+		kundePanel.add(lblEmail);
+		
+		JLabel lblKundenummer = new JLabel("Kundenummer:");
+		lblKundenummer.setBounds(25, 159, 81, 14);
+		kundePanel.add(lblKundenummer);
+		
+		JLabel lblKundetype = new JLabel("Kundetype:");
+		lblKundetype.setBounds(25, 183, 81, 14);
+		kundePanel.add(lblKundetype);
+		
+		JLabel lblKundegruppe = new JLabel("Kundegruppe:");
+		lblKundegruppe.setBounds(25, 208, 81, 14);
+		kundePanel.add(lblKundegruppe);
+		
+		phoneTextField = new JTextField();
+		phoneTextField.setBounds(118, 30, 158, 20);
+		kundePanel.add(phoneTextField);
+		phoneTextField.setColumns(10);
+		
+		nameTextField = new JTextField();
+		nameTextField.setBounds(118, 54, 158, 22);
+		kundePanel.add(nameTextField);
+		nameTextField.setColumns(10);
+		
+		addressTextField = new JTextField();
+		addressTextField.setBounds(118, 79, 158, 22);
+		kundePanel.add(addressTextField);
+		addressTextField.setColumns(10);
+		
+		cityTextField = new JTextField();
+		cityTextField.setBounds(118, 105, 158, 22);
+		kundePanel.add(cityTextField);
+		cityTextField.setColumns(10);
+		
+		emailTextField = new JTextField();
+		emailTextField.setBounds(118, 130, 158, 22);
+		kundePanel.add(emailTextField);
+		emailTextField.setColumns(10);
+		
+		customerIdTextField = new JTextField();
+		customerIdTextField.setBounds(118, 155, 158, 22);
+		kundePanel.add(customerIdTextField);
+		customerIdTextField.setColumns(10);
+		
+		customerTypeTextField = new JTextField();
+		customerTypeTextField.setBounds(118, 179, 158, 22);
+		kundePanel.add(customerTypeTextField);
+		customerTypeTextField.setColumns(10);
+		
+		customerGroupTextField = new JTextField();
+		customerGroupTextField.setBounds(118, 204, 158, 22);
+		kundePanel.add(customerGroupTextField);
+		customerGroupTextField.setColumns(10);
+		
+		Button addCustomerBtn = new Button("Tilføj kunde");
+		addCustomerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		addCustomerBtn.setBounds(244, 232, 79, 24);
+		kundePanel.add(addCustomerBtn);
+		
+		JLabel lblNewLabel = new JLabel("Kunde");
+		lblNewLabel.setBounds(70, 44, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		JPanel productPanel = new JPanel();
+		productPanel.setBounds(430, 60, 333, 266);
+		contentPane.add(productPanel);
+		productPanel.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("Beskrivelse:");
+		lblNewLabel_2.setBounds(25, 32, 76, 16);
+		productPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Varenummer:");
+		lblNewLabel_3.setBounds(25, 57, 86, 16);
+		productPanel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Varegruppe:");
+		lblNewLabel_4.setBounds(25, 85, 76, 16);
+		productPanel.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Lagerstatus:");
+		lblNewLabel_5.setBounds(25, 110, 76, 16);
+		productPanel.add(lblNewLabel_5);
+		
+		descriptionTextField = new JTextField();
+		descriptionTextField.setBounds(118, 30, 158, 20);
+		productPanel.add(descriptionTextField);
+		descriptionTextField.setColumns(10);
+		
+		productIdTextField = new JTextField();
+		productIdTextField.setBounds(118, 54, 158, 22);
+		productPanel.add(productIdTextField);
+		productIdTextField.setColumns(10);
+		
+		productGroupTextField = new JTextField();
+		productGroupTextField.setBounds(118, 82, 158, 22);
+		productPanel.add(productGroupTextField);
+		productGroupTextField.setColumns(10);
+		
+		productStatusTextField = new JTextField();
+		productStatusTextField.setBounds(118, 107, 158, 22);
+		productPanel.add(productStatusTextField);
+		productStatusTextField.setColumns(10);
+		
+		Button addProductBtn = new Button("Tilf\u00F8j vare");
+		addProductBtn.setBounds(244, 232, 79, 24);
+		productPanel.add(addProductBtn);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setBounds(12, 186, 56, 16);
+		productPanel.add(label_1);
+		
+		JLabel lblNewLabel_6 = new JLabel("Antal: ");
+		lblNewLabel_6.setBounds(25, 171, 56, 16);
+		productPanel.add(lblNewLabel_6);
+		
+		amountTextField = new JTextField();
+		amountTextField.setBounds(68, 168, 61, 22);
+		productPanel.add(amountTextField);
+		amountTextField.setColumns(10);
+		
+		JLabel lblVare = new JLabel("Vare");
+		lblVare.setBounds(430, 43, 56, 16);
+		contentPane.add(lblVare);
+		
+		table = new JTable();
+		table.setBounds(70, 373, 688, 90);
+		contentPane.add(table);
+		
+		JButton createOrderBtn = new JButton("Opret ordre");
+		createOrderBtn.setBounds(643, 515, 120, 25);
+		contentPane.add(createOrderBtn);
+	}
+}
