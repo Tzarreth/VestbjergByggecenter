@@ -8,6 +8,7 @@ import model.*;
 
 public class SupplyOrderCtrl {
 	private SupplyOrderContainer supplyOrderCon;
+	private  HashMap <Supplier, SupplyOrder> currSupplyOrders;
 
 	public SupplyOrderCtrl(){
 		supplyOrderCon = SupplyOrderContainer.getInstane();
@@ -43,6 +44,10 @@ public class SupplyOrderCtrl {
 	public int amountToReorder(Product p){
 		return p.getMaxAmount() - p.getQuantity();
 	}
+	
+	public double getTotalPrice(Product p){
+		return amountToReorder(p) * p.getPurchasePrice();
+	}
 
 	/** 
 	 * This method creates a HashMap, where the SupplyOrder is stored with the Products that has been approved for 
@@ -69,8 +74,13 @@ public class SupplyOrderCtrl {
 				tempSupplyOrders.put(sup, tempNewSupplyOrder);
 			}
 		}
-		addHashMapToContainer(tempSupplyOrders);
+		//addHashMapToContainer(tempSupplyOrders);
+		currSupplyOrders = tempSupplyOrders;
 		return tempSupplyOrders; 
+	}
+	
+	public HashMap<Supplier, SupplyOrder> getCurrentSupplyOrder(){
+		return currSupplyOrders;
 	}
 
 	/**

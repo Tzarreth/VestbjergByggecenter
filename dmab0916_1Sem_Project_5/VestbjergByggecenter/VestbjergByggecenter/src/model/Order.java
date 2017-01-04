@@ -15,6 +15,7 @@ public class Order{
 	private boolean placed;
 	private LocalDate expiryDate;
 	private Customer customer;
+	private OrderLine orderLine;
 	private ArrayList<OrderLine> orderLines;
 
 	public Order(){
@@ -193,6 +194,30 @@ public class Order{
 		return customer;
 	}
 
+	public ArrayList<String> getProducts(){
+		ArrayList<String> p = new ArrayList<>();
+		String product = null;
+		for(int i = 0; i < orderLines.size(); i++){
+		 product =  orderLines.get(i).getProduct().getDescription();
+		 p.add(product);
+		}
+		return p; 
+		//return orderLines.iterator().next().getProduct();
+	}
+	
+	public ArrayList<Integer> getAmount(){
+		ArrayList<Integer> ia = new ArrayList<>();
+		int amount = 0;
+		for(int i = 0; i < orderLines.size(); i++){
+		 amount = orderLines.get(i).getAmount();
+		 ia.add(amount);
+		}
+		return ia; 	
+	}
+	
+	public OrderLine getOrderLine(){
+		return orderLine;
+	}
 	public ArrayList<OrderLine> getOrderLines() {
 		return new ArrayList<>(orderLines);
 	}

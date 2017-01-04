@@ -1,0 +1,29 @@
+1483532308591	Rename type 'OrderMenu'
+1483532858296	Convert local variable 'mainMenuView' to field
+1483532928664	Convert local variable 'orderMenuView' to field
+1483533519387	Delete element
+1483553818813	Delete element
+1483554177819	Rename type 'orderShowAllOrdersView'
+1483554303281	Rename field 'btnAnnullere'
+1483554324172	Rename method 'btnAnnullereClicked'
+1483554354789	Rename method 'btnGodkendBestillingClicked'
+1483554377061	Rename local variable 'btnGodkendBestilling'
+1483554499302	Rename local variable 'lagerGUI'
+1483554571061	Delete element
+1483554613802	Rename local variable 'lblVaremodtagelse'
+1483554639914	Rename local variable 'btnRegModtagelse'
+1483554655455	Rename method 'btnRegModtagelseClicked'
+1483554667027	Rename local variable 'btnTilbage'
+1483554856718	Rename local variable 'btnGenbestilVare'
+1483554869411	Rename method 'btnGenbestilVareClicked'
+1483554884801	Rename local variable 'btnModtagVare'
+1483554893519	Rename method 'btnModtagVareClicked'
+1483554908865	Rename local variable 'btnLageroversigt'
+1483554920211	Rename method 'btnLageroversigtClicked'
+1483554927917	Rename local variable 'btnTilbage'
+1483554933690	Rename method 'btnTilbageClicked'
+1483555022947	Rename local variable 'btnGodkendBestilling'
+1483555032609	Rename method 'btnGodkendBestillingClicked'
+1483555039497	Rename local variable 'btnTilbage'
+1483555045664	Rename method 'btnTilbageClicked'
+1483555062110	Rename local variable 'lblFejl'
