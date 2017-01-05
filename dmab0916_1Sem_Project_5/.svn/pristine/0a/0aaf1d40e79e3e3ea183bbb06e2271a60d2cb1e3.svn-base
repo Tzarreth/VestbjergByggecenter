@@ -1,0 +1,107 @@
+package ui.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class OrderMenuView extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderMenuView frame = new OrderMenuView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public OrderMenuView() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		btnCreateOrderMenu();
+		btnAllOrders();
+		
+	}
+	
+	private void btnAllOrders() {
+		ImageIcon iconAllOrders = new ImageIcon(getClass().getClassLoader().getResource("images/orderList.png"));
+		JButton btnAllOrders = new JButton(iconAllOrders);
+		btnAllOrders.setFocusPainted(false);
+		btnAllOrders.setText("Se Alle Ordrer");
+		btnAllOrders.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				btnCreateBtnCreateOrderMenu();
+				System.out.println("seeAllOrders clicked");
+			}
+
+		});
+		contentPane.setLayout(null);
+		
+
+		btnAllOrders.setBackground(SystemColor.menu);
+		btnAllOrders.setBorder(null);
+		btnAllOrders.setBounds(400, 159, 222, 172);
+		contentPane.add(btnAllOrders);
+	}
+
+	public void btnCreateOrderMenu(){
+		
+		ImageIcon iconCreateOrder = new ImageIcon(getClass().getClassLoader().getResource("images/createOrder1.png"));
+		JButton btnCreateOrderView = new JButton(iconCreateOrder);
+		btnCreateOrderView.setFocusPainted(false);
+		btnCreateOrderView.setMnemonic(KeyEvent.VK_O);
+		btnCreateOrderView.setText("Opret Ordre");
+		btnCreateOrderView.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				btnCreateBtnCreateOrderMenu();
+				System.out.println("Order clicked");
+			}
+
+		});
+		contentPane.setLayout(null);
+		
+
+		btnCreateOrderView.setBackground(SystemColor.menu);
+		btnCreateOrderView.setBorder(null);
+		btnCreateOrderView.setBounds(115, 159, 222, 172);
+		contentPane.add(btnCreateOrderView);
+	}
+	
+	public void btnCreateBtnCreateOrderMenu(){
+		CreateOrderView cov = new CreateOrderView();
+		JPanel jp = (JPanel) cov.getContentPane();
+		contentPane = jp;
+		setContentPane(contentPane);
+		contentPane.setVisible(true);
+		contentPane.revalidate();
+	}
+	
+}

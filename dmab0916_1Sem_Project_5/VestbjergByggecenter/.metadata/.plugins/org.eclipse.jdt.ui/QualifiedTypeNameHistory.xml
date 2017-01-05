@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
-<fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="ui.gui.CardLayout"/>
-<fullyQualifiedTypeName name="ui.gui.OrderMenuView"/>
 <fullyQualifiedTypeName name="java.awt.CardLayout"/>
 <fullyQualifiedTypeName name="ui.gui.CardLayoutTest"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
@@ -11,5 +9,8 @@
 <fullyQualifiedTypeName name="java.awt.Frame"/>
 <fullyQualifiedTypeName name="controller.SaveAndLoadFromFile"/>
 <fullyQualifiedTypeName name="ui.IMainMenuUI"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="ui.gui.Setup"/>
 <fullyQualifiedTypeName name="ui.gui.MainMenuView"/>
+<fullyQualifiedTypeName name="ui.gui.OrderMenuView"/>
 </qualifiedTypeNameHistroy>

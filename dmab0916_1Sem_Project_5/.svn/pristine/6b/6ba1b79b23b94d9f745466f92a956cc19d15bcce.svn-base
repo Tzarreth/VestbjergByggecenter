@@ -1,0 +1,20 @@
+package ui.gui;
+import java.awt.Font;
+
+public class Constants {
+
+	public static int btnBackXCoordinate = 30;
+	public static int btnBackYCoordinate = 500;
+	public static int btnBackWidth = 100;
+	public static int btnBackHeight = 30;
+	
+	public static int btnRightXCoordinate = 480;
+	public static int btnRightYCoordinate = 500;
+	public static int btnRightWidth = 225;
+	public static int btnRightHeight = 30;
+	
+	public static int fontSize = 16;
+	public static String fontName = "Consolas";
+	public static int fontStyle = Font.PLAIN;
+
+}

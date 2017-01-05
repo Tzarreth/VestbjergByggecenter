@@ -27,3 +27,10 @@
 1483555039497	Rename local variable 'btnTilbage'
 1483555045664	Rename method 'btnTilbageClicked'
 1483555062110	Rename local variable 'lblFejl'
+1483614780920	Delete element
+1483615639112	Delete element
+1483615737508	Delete element
+1483615810455	Delete element
+1483616513082	Rename type 'myTableCreateOrder'
+1483617595609	Rename type 'TabelModelSupplyOrder'
+1483617605952	Rename type 'TabelModelRecieveSupplyOrder'

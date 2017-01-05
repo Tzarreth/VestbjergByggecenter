@@ -1,0 +1,113 @@
+package ui.gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Image;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.border.EmptyBorder;
+import model.*;
+
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
+
+public class MainGUI extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		setup();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainGUI frame = new MainGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MainGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 656, 384);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.menu);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		createBtnOrder();
+		createBtnSupplier();
+	}
+	
+	private void createBtnOrder() {
+		ImageIcon iconOrder = new ImageIcon(getClass().getClassLoader().getResource("images/cart.png"));
+		JButton btnOrder = new JButton(iconOrder);
+		btnOrder.setFocusPainted(false);
+		btnOrder.setText("Ordrer");
+		btnOrder.setMnemonic(KeyEvent.VK_O);
+		btnOrder.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Order clicked");
+			}
+		});
+		
+		btnOrder.setBackground(SystemColor.menu);
+		btnOrder.setBorder(null);
+		btnOrder.setBounds(67, 74, 172, 172);
+		contentPane.add(btnOrder);
+	}
+	
+	private void createBtnSupplier() {
+		ImageIcon iconSupplier = new ImageIcon(getClass().getClassLoader().getResource("images/dolly.png"));
+		JButton btnLager = new JButton(iconSupplier);
+		btnLager.setFocusPainted(false);
+		btnLager.setText("Lager");
+		btnLager.setMnemonic(KeyEvent.VK_L);
+		btnLager.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Supplier clicked");
+				btnLagerClicked();
+				
+			}
+		});
+		
+		btnLager.setBackground(new Color(240, 240, 240));
+		btnLager.setBorder(null);
+		btnLager.setBounds(357, 74, 172, 172);
+		contentPane.add(btnLager);
+	}
+
+	protected void btnLagerClicked() {
+		StockMainView stockMainView = new StockMainView();
+		stockMainView.setVisible(true);
+	}
+	
+	
+}

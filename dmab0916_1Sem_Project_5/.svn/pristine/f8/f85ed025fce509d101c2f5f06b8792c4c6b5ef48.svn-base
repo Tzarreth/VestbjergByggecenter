@@ -1,0 +1,24 @@
+package ui.gui;
+import java.awt.Font;
+
+public class Constants {
+
+
+	
+	public static int btnBackXCoordinate = 30;
+	public static int btnBackYCoordinate = 500;
+	public static int btnBackWidth = 100;
+	public static int btnBackHeight = 25;
+	
+	public static int btnRightXCoordinate = 520;
+	public static int btnRightYCoordinate = 500;
+	public static int btnRightWidth = 175;
+	public static int btnRightHeight = 25;
+	/*
+	public static int fontSize = 16
+	public static String fontName = "Tagoma";
+	
+	public static Font getFont(){
+		return new Font("Tahoma", Font.PLAIN, 16);
+	}*/
+}

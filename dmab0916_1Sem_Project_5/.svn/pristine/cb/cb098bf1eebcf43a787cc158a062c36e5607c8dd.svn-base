@@ -1,0 +1,14 @@
+package ui;
+
+import model.Customer;
+import ui.libTUI.*;
+
+public class CustomerConverter implements ConverterIF {
+
+	@Override
+	public String convertToString(Object o) {
+		Customer c = (Customer) o;
+		return c.getPhone() + "  -  " + c.getName();
+	}
+
+}
