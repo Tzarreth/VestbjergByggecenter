@@ -1,0 +1,645 @@
+package ui.gui;
+
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import controller.*;
+import controller.SaveAndLoadFromFile;
+import exceptions.model.CustomerDoesNotExistsException;
+import model.Customer;
+import model.OrderContainer;
+import model.OrderLine;
+import model.Product;
+import ui.TableModels.MyTableCreateOrder;
+import ui.gui.*;
+import ui.libGUI.*;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import javax.swing.JScrollPane;
+import java.awt.SystemColor;
+import javax.swing.border.BevelBorder;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.NavigationFilter;
+
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.Font;
+import java.awt.Point;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
+/**
+ * NOTE!: Large class. press "Ctrl" + "Shift" + numpad"/" for at better overview.
+ * @author Gruppe 5
+ *
+ */
+
+public class CreateOrderView extends JFrame {
+
+	private JPanel contentPane;
+
+	private JTextField phoneTxt;
+	private JTextField nameTextField;
+	private JTextField addressTextField;
+	private JTextField zipcityTextField;
+	private JTextField emailTextField;
+	private JTextField customerIdTextField;
+	private JTextField customerTypeTextField;
+	private JTextField customerGroupTextField;
+	private JTextField productIdTxt;
+	private JTextField descriptionTextField;
+	private JTextField productGroupTextField;
+	private JTextField productStatusTextField;
+	private JTextField quantityTextField;
+
+	private JTable tableOrder;
+
+	private OrderCtrl orderCtrl = new OrderCtrl();
+	private CustomerCtrl cCtrl = new CustomerCtrl();
+	private ProductCtrl pCtrl = new ProductCtrl();
+	private StockCtrl sCtrl = new StockCtrl();
+	public  MyTableCreateOrder myTable = new MyTableCreateOrder();
+	private JButton btnFjern;
+	private JScrollPane spProd;
+	private DropDownList<Customer> cList;
+	private JScrollPane scrollPaneCustomer;
+	private JButton createOrderBtn;
+	private JButton btnAddGoodsToOrder;
+	private JButton btnAddCustomerToOrder;
+	private DropDownList<Product> pList;
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+
+		Setup.setup();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreateOrderView frame = new CreateOrderView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CreateOrderView(){
+
+		orderCtrl.createOrder();
+
+		setupFrame();
+
+		setupCustomerPanel();
+
+		setupProductPanel();
+
+		setupTable();
+
+		setupActionListeners();
+
+		setupKeyListeners();
+
+		setupMouseListeners();
+
+	}
+
+	private void setupKeyListeners() {
+
+		phoneTxt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					selectCustomer();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				autoSelectCustomer();
+			}
+		});
+
+		quantityTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					createOrderLineButtonClicked();
+					productIdTxt.requestFocus();
+				}
+			}
+		});
+
+		productIdTxt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				autoSelectProduct();
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					selectProduct();
+				}
+			}
+		});
+
+	}
+
+	private void setupActionListeners() {
+
+		btnFjern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnFjernClicked();
+			}
+		});
+
+		createOrderBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createOrderButtonClicked();
+			}
+		});
+
+		btnAddGoodsToOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createOrderLineButtonClicked();
+			}
+		});
+
+		btnAddCustomerToOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectCustomer();
+			}
+		});
+	}
+
+	private void setupMouseListeners(){
+		tableOrder.addMouseListener(new MouseAdapter() {
+			/**
+			 * This method sets the button "Fjern" to enabled only when a table element is selected.
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				boolean isTableSelected = myTable.isTableselected();
+				if(isTableSelected){
+					btnFjern.setEnabled(true);
+				}
+				else{
+					btnFjern.setEnabled(false);
+				}
+			}
+		});
+
+		cList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectCustomer();
+			}
+		});
+
+		pList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectProduct();
+			}
+		});
+
+		phoneTxt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				phoneTxt.select(0, 15);
+			}
+		});
+
+
+	}
+
+	private void setupTable() {
+		JScrollPane scrollPane = new JScrollPane();
+
+		scrollPane.setBounds(31, 359, 709, 108);
+		contentPane.add(scrollPane);
+
+		tableOrder = new JTable();
+
+		scrollPane.setViewportView(tableOrder);
+		tableOrder.setModel(myTable);
+
+		btnFjern = new JButton("Fjern");
+		btnFjern.setEnabled(false);
+
+		btnFjern.setBounds(670, 466, 70, 16);
+		contentPane.add(btnFjern);
+	}
+
+	private void setupFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.inactiveCaption);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+
+		JButton btnBack = new JButton("Tilbage");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainMenuView.getInstance().goBack();
+			}
+		});
+		btnBack.setBounds(31, 497, Constants.btnBackWidth, Constants.btnBackHeight);
+		contentPane.add(btnBack);
+
+
+		createOrderBtn = new JButton("Opret ordre");
+		createOrderBtn.setBounds(628, 500, 114, 25);
+		contentPane.add(createOrderBtn);
+	}
+
+	private void setupProductPanel() {
+		JPanel productPanel = new JPanel();
+		productPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		productPanel.setBounds(407, 60, 333, 266);
+		contentPane.add(productPanel);
+		productPanel.setLayout(null);
+
+		spProd = new JScrollPane();
+		spProd.setBounds(118, 61, 203, 86);
+		productPanel.add(spProd);
+
+		JLabel lblGoodsNumber = new JLabel("Varenummer:");
+		lblGoodsNumber.setBounds(25, 32, 86, 16);
+		productPanel.add(lblGoodsNumber);
+
+		JLabel lblDescription = new JLabel("Beskrivelse:");
+		lblDescription.setBounds(25, 57, 86, 16);
+		productPanel.add(lblDescription);
+
+		JLabel lblGoodsGroup = new JLabel("Varegruppe:");
+		lblGoodsGroup.setBounds(25, 85, 76, 16);
+		productPanel.add(lblGoodsGroup);
+
+		JLabel lblWarehouseStatus = new JLabel("Lagerstatus:");
+		lblWarehouseStatus.setBounds(25, 110, 76, 16);
+		productPanel.add(lblWarehouseStatus);
+
+		productIdTxt = new JTextField();
+		productIdTxt.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		productIdTxt.setText("s\u00F8g efter produktnummer");
+		productIdTxt.setBounds(118, 30, 158, 20);
+		productPanel.add(productIdTxt);
+		productIdTxt.setColumns(10);
+
+		descriptionTextField = new JTextField();
+		descriptionTextField.setBounds(118, 54, 158, 22);
+		productPanel.add(descriptionTextField);
+		descriptionTextField.setColumns(10);
+
+		productGroupTextField = new JTextField();
+		productGroupTextField.setBounds(118, 82, 158, 22);
+		productPanel.add(productGroupTextField);
+		productGroupTextField.setColumns(10);
+
+		productStatusTextField = new JTextField();
+		productStatusTextField.setBounds(118, 107, 158, 22);
+		productPanel.add(productStatusTextField);
+		productStatusTextField.setColumns(10);
+
+		JLabel label_1 = new JLabel("");
+		label_1.setBounds(12, 186, 56, 16);
+		productPanel.add(label_1);
+
+		JLabel lblQuantity = new JLabel("Antal: ");
+		lblQuantity.setBounds(25, 171, 56, 16);
+		productPanel.add(lblQuantity);
+
+		quantityTextField = new JTextField();
+		quantityTextField.setBounds(119, 168, 61, 22);
+		productPanel.add(quantityTextField);
+		quantityTextField.setColumns(10);
+
+		btnAddGoodsToOrder = new JButton("Tilf\u00F8j vare");
+		btnAddGoodsToOrder.setBounds(224, 241, 97, 25);
+		productPanel.add(btnAddGoodsToOrder);
+
+		JLabel lblVare = new JLabel("Vare");
+		lblVare.setBounds(407, 43, 56, 16);
+		contentPane.add(lblVare);
+
+		pList = new DropDownList<>(productIdTxt, spProd, pCtrl.getAll(), new ProductAdaptor());
+
+	}
+
+	private void setupCustomerPanel() {
+		JPanel customerPanel = new JPanel();
+		customerPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		customerPanel.setBounds(31, 60, 348, 266);
+		contentPane.add(customerPanel);
+		customerPanel.setLayout(null);
+
+		scrollPaneCustomer = new JScrollPane();
+		scrollPaneCustomer.setBounds(104, 58, 210, 87);
+		customerPanel.add(scrollPaneCustomer);
+
+
+		JLabel lblName = new JLabel("Navn:");
+		lblName.setBounds(25, 58, 81, 14);
+		customerPanel.add(lblName);
+
+		JLabel lblPhone = new JLabel("Telefon:");
+		lblPhone.setBounds(25, 33, 81, 14);
+		customerPanel.add(lblPhone);
+
+		JLabel lblAddresse = new JLabel("Adresse:");
+		lblAddresse.setBounds(25, 83, 60, 14);
+		customerPanel.add(lblAddresse);
+
+		JLabel lblZipCity = new JLabel("Postnr. og by:");
+		lblZipCity.setBounds(25, 109, 81, 14);
+		customerPanel.add(lblZipCity);
+
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(25, 134, 46, 14);
+		customerPanel.add(lblEmail);
+
+		JLabel lblCustomerNumber = new JLabel("Kundenummer:");
+		lblCustomerNumber.setBounds(25, 159, 88, 14);
+		customerPanel.add(lblCustomerNumber);
+
+		JLabel lblCustomerType = new JLabel("Kundetype:");
+		lblCustomerType.setBounds(25, 183, 81, 14);
+		customerPanel.add(lblCustomerType);
+
+		JLabel lblCustomerGroup = new JLabel("Kundegruppe:");
+		lblCustomerGroup.setBounds(25, 208, 81, 14);
+		customerPanel.add(lblCustomerGroup);
+
+		phoneTxt = new JTextField();
+		phoneTxt.setFont(new Font("Tahoma", Font.ITALIC, 12));
+		phoneTxt.setText("s\u00F8g efter tlf.");
+		phoneTxt.select(0, 15);
+		phoneTxt.setBounds(118, 30, 158, 20);
+		customerPanel.add(phoneTxt);
+		phoneTxt.setColumns(10);
+
+		customerTypeTextField = new JTextField();
+		customerTypeTextField.setBounds(118, 179, 158, 22);
+		customerPanel.add(customerTypeTextField);
+		customerTypeTextField.setColumns(10);
+
+		customerGroupTextField = new JTextField();
+		customerGroupTextField.setBounds(118, 204, 158, 22);
+		customerPanel.add(customerGroupTextField);
+		customerGroupTextField.setColumns(10);
+
+		btnAddCustomerToOrder = new JButton("Tilf\u00F8j kunde");
+		btnAddCustomerToOrder.setBounds(227, 239, 109, 25);
+		customerPanel.add(btnAddCustomerToOrder);
+
+		addressTextField = new JTextField();
+		addressTextField.setBounds(118, 79, 158, 22);
+		customerPanel.add(addressTextField);
+		addressTextField.setColumns(10);
+
+		zipcityTextField = new JTextField();
+		zipcityTextField.setBounds(118, 105, 158, 22);
+		customerPanel.add(zipcityTextField);
+		zipcityTextField.setColumns(10);
+
+		nameTextField = new JTextField();
+		nameTextField.setBounds(118, 54, 158, 22);
+		customerPanel.add(nameTextField);
+		nameTextField.setColumns(10);
+
+		emailTextField = new JTextField();
+		emailTextField.setBounds(118, 130, 158, 22);
+		customerPanel.add(emailTextField);
+		emailTextField.setColumns(10);
+
+		customerIdTextField = new JTextField();
+		customerIdTextField.setBounds(118, 155, 158, 22);
+		customerPanel.add(customerIdTextField);
+		customerIdTextField.setColumns(10);
+
+		JLabel lblNewLabel = new JLabel("Kunde");
+		lblNewLabel.setBounds(31, 44, 46, 14);
+		contentPane.add(lblNewLabel);
+		// Creates and adds the DropDownList used with phoneTxt for auto completion. 
+		cList = new DropDownList<>(phoneTxt, scrollPaneCustomer, cCtrl.getAll(), new CustomerAdaptor());
+	}
+
+	/**
+	 * This method is called either when clicking the desired customer from the DropDownList or by pressing enter.
+	 * The currently highlighted customer from the DropDownList will selected and the rest of the TextFields will be set.
+	 * If an invalid number that is not 8 digits in length is entered and selected a JOptionPane will pop up reporting an error.
+	 * If an invalid number of 8 digits in length is entered the user is asked if if he/she whishes to create a new customer from the corresponding phone number.  
+	 */
+	public void selectCustomer(){
+		Customer c = orderCtrl.findCustomer(phoneTxt.getText());
+		if(c != null){
+			setCustomerFields(c);
+		}
+		else if(cCtrl.findCustomer(phoneTxt.getText()) == null && phoneTxt.getText().length() == 8){
+			int response = JOptionPane.showConfirmDialog(null, "Ønsker du at oprette ny kunde udfra telefonnummeret: " + phoneTxt.getText() +"?", "Opret ny kunde",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (response == JOptionPane.YES_OPTION) {
+				NewCustomerView ncd = new NewCustomerView(); // Opens NewCustomerDialog to create the new customer.
+				ncd.setVisible(true);
+				ncd.carryFieldsFromPreviousFrame(phoneTxt.getText(), nameTextField.getText(), addressTextField.getText(), emailTextField.getText(), customerTypeTextField.getText());
+				ncd.setPreviousFrame(this);
+			}
+		}
+		else{
+			JOptionPane.showMessageDialog(contentPane, "Ugyldigt kundenummer!");
+		}
+	}
+
+	/**
+	 * This method is called either when clicking the desired product from the DropDownList or by pressing enter.
+	 * The rest of the product fields will be set automatically.
+	 * If an invalid product number is selected, a JOptionPane will pop up showing an error message.
+	 */
+	private void selectProduct() {
+		Product p = pCtrl.findProduct(productIdTxt.getText());
+		if (p != null){
+			setProductFields(p);
+		}
+		else {
+			JOptionPane.showMessageDialog(contentPane, "Ugyldigt produktnummer");
+		}
+
+	}
+
+	/**
+	 * This method auto selects a customer when a valid phone number is entered.
+	 */
+	protected void autoSelectCustomer(){ 
+		Customer c = cCtrl.findCustomer(phoneTxt.getText());
+		if (c != null){setCustomerFields(c);}
+		else {clearCustomerText();}
+	}
+
+	/**
+	 * This method auto selects a product when a valid product number is entered.
+	 */
+	protected void autoSelectProduct() {
+		Product p = pCtrl.findProduct(productIdTxt.getText());
+		if (p != null){setProductFields(p);}
+		else {clearProductText();}
+	}
+
+	protected void setCustomerFields(Customer c){
+		cList.setVisible(false);
+		scrollPaneCustomer.setVisible(false);
+		phoneTxt.setText(c.getPhone());
+		nameTextField.setText(c.getName());
+		addressTextField.setText(c.getAddress());
+		emailTextField.setText(c.getEmail());
+		customerIdTextField.setText(c.getID());
+		customerTypeTextField.setText(c.getType());
+		productIdTxt.requestFocus(); // After setting the customer fields focus is transfered to productIdTxt for improved usability.
+		productIdTxt.select(0, 25);
+	}
+
+	private void setProductFields(Product p){
+		productIdTxt.setText(p.getProductNumber());
+		descriptionTextField.setText(p.getDescription());
+		productGroupTextField.setText(p.getProductGroup());
+		productStatusTextField.setText(Integer.toString(p.getQuantity()));
+		spProd.setVisible(false);
+		spProd.setVisible(false);
+		quantityTextField.requestFocus();// After setting the product fields focus is transfered to quantityTextField for improved usability.
+	}
+	
+	/**
+	 * This method creates an OrderLine object holding the selected product and amount and add it the order. 
+	 */
+	public void createOrderLineButtonClicked(){
+		String productnr = productIdTxt.getText();
+		StringTokenizer tokenizer = new StringTokenizer(productnr);
+		productnr = tokenizer.nextToken();
+		Product p = pCtrl.findProduct(productnr);
+
+		if(productStatusTextField.equals(null) || productStatusTextField.equals(0)){
+			System.out.println("Vare ikke på lager");
+		}
+		else if (quantityTextField.getText().length() == 0){
+			JOptionPane.showMessageDialog(contentPane, "Der er ikke angivet et antal");
+		}
+		else if (((DefaultListModel) pList.getModel()).isEmpty()){
+			JOptionPane.showMessageDialog(contentPane, "Der er ikke valgt en vare");
+		}
+		else if(p == null){
+			JOptionPane.showMessageDialog(contentPane, "Ugyldigt varenummer!");
+		}
+
+		else{
+			String currAmount = quantityTextField.getText();
+			int amount = Integer.parseInt(currAmount);
+
+			orderCtrl.addProductToOrder(p, amount);
+			myTable.setData(orderCtrl.getAllOrderLines());
+			clearProductText();
+			productIdTxt.setText("");
+			productIdTxt.requestFocus();
+		}
+	}
+
+
+	/**
+	 * This method removes the selected table element from the current order.
+	 */
+	protected void btnFjernClicked() {
+		for(int i =0; i < tableOrder.getRowCount(); i++){
+			if ((boolean) myTable.getValueAt(i, 5)){
+				orderCtrl.removeOrderLine(myTable.getData(i));
+				myTable.setValueAt(false, i, 5);
+			}
+			myTable.setData(orderCtrl.getAllOrderLines());
+			btnFjern.setEnabled(false);
+		}
+	}
+
+
+	private void createOrderButtonClicked(){
+		SaveAndLoadFromFile save = new SaveAndLoadFromFile();
+
+		try {
+			orderCtrl.addCustomerToOrder(orderCtrl.findCustomer(phoneTxt.getText()));
+		} catch (CustomerDoesNotExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		updateStock(); // Updates the stock, subtracting the amount sold. 
+		orderCtrl.closeOrder();
+
+		save.saveAll(); //Save.
+
+		clearAllText();
+	}
+
+	private void clearCustomerText(){
+		//phoneTxt.setText("");
+		nameTextField.setText("");
+		addressTextField.setText(null);
+		zipcityTextField.setText("");
+		emailTextField.setText("");
+		customerIdTextField.setText("");
+		customerTypeTextField.setText("");
+		customerGroupTextField.setText("");
+	}
+
+	private void clearProductText(){
+		//productIdTxt.setText("");
+		descriptionTextField.setText("");
+		productGroupTextField.setText("");
+		productStatusTextField.setText("");
+		quantityTextField.setText("");
+	}
+
+	public void clearAllText(){
+		phoneTxt.setText("");
+		productIdTxt.setText("");
+		clearCustomerText();
+		clearProductText();
+		myTable.setData(null);
+	}
+	/**
+	 * Updates the stock-quantity of all the ordered products.
+	 */
+	private void updateStock() {
+		for(OrderLine ol : orderCtrl.getAllOrderLines()){
+			sCtrl.updateStock(ol.getProduct(), ol.getAmount() );
+		}
+	}
+
+}

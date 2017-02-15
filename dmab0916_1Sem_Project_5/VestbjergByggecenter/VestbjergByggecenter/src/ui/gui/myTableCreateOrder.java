@@ -12,18 +12,18 @@ import model.Product;
 
 import model.Order;
 
-public class myTableCreateOrder extends DefaultTableModel {
+public class MyTableCreateOrder extends DefaultTableModel {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Order> orders;
+	private ArrayList<OrderLine> orders;
 	private Order order;
 
-	public myTableCreateOrder(){
+	public MyTableCreateOrder(){
 		orders = new ArrayList<>();
 	}
 
 	@Override
 	public int getColumnCount(){
-		return 6;
+		return 5;
 	}
 
 	@Override
@@ -40,7 +40,6 @@ public class myTableCreateOrder extends DefaultTableModel {
 		case 2: System.out.println("Pris"); return "Pris";
 		case 3: System.out.println("Antal"); return "Antal";
 		case 4: System.out.println("Total Pris"); return "Total Pris"; 
-		case 5 : System.out.println("Kunde navn");return "Kunde navn";
 		default: System.out.println("???");return "???";
 		}
 	}
@@ -48,22 +47,21 @@ public class myTableCreateOrder extends DefaultTableModel {
 	@Override
 	public Object getValueAt(int row, int col){
 		switch(col){
-		case 0: return orders.get(row).getOrderLine().getProduct().getDescription();
-		case 1: return orders.get(row).getOrderLine().getProduct().getProductNumber();
-		case 2: return orders.get(row).getOrderLine().getProduct().getSalePrice();
-		case 3: return orders.get(row).getOrderLine().getAmount();
-		case 4: return orders.get(row).getTotalPrice();
-		case 5: return orders.get(row).getCustomer();
+		case 0: return orders.get(row).getProduct().getDescription();
+		case 1: return orders.get(row).getProduct().getProductNumber();
+		case 2: return orders.get(row).getProduct().getSalePrice();
+		case 3: return orders.get(row).getAmount();
+		case 4: return (orders.get(row).getAmount()) * (orders.get(row).getProduct().getSalePrice());
 		default: return null;
 		}
 	}
-	
-	public void setData(ArrayList<Order> data) {
+
+	public void setData(ArrayList<OrderLine> data) {
 		this.orders = data;
 		super.fireTableDataChanged();
 	}
 
-	public Order getData(int selectedRow) {
+	public OrderLine getData(int selectedRow) {
 		if(selectedRow >= 0 && selectedRow < orders.size()) {
 			return this.orders.get(selectedRow);
 		}
