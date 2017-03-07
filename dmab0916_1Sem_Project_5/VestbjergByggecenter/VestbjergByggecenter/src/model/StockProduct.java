@@ -45,7 +45,4 @@ public class StockProduct {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
-	
-
 }

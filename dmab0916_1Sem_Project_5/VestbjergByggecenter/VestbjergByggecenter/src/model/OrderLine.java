@@ -23,7 +23,6 @@ public class OrderLine {
 	
 	@Override
 	public String toString(){
-		return "beskrivelse: " + product.getDescription() + ", antal: " + amount;
-		
+		return "beskrivelse: " + product.getDescription() + ", antal: " + amount;	
 	}
 }

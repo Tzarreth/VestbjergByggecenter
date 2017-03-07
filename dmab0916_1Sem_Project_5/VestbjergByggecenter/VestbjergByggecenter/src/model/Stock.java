@@ -15,7 +15,6 @@ public class Stock {
 		if (instance == null){
 			instance = new Stock();
 		}
-		
 		return instance;
 	}
 	
